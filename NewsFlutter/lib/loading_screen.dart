@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key key}) : super(key: key);
-
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:NewsFlutter/createnews.dart';
+import 'package:NewsFlutter/editnews.dart';
 import 'package:NewsFlutter/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -172,20 +173,37 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        _delete(news[index]['id']);
-                                      });
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          showDialog( context: context,
+                                              builder: (context) {
+                                                return EditNews(id:news[index]['id'],title: news[index]['title'],desc: news[index]['desc']);
+                                              });
+                                        });
 
-                                    },
-                                    child: Icon(Icons.close,
-                                    color: Colors.red,
-                                    size: 20 ,
+                                      },
+                                      child: Icon(Icons.edit,
+                                        color: Colors.blue,
+                                        size: 20 ,
+                                      ),
                                     ),
-                                  ),
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          _delete(news[index]['id']);
+                                        });
+
+                                      },
+                                      child: Icon(Icons.close,
+                                      color: Colors.red,
+                                      size: 20 ,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 Row(
                                   children: [
@@ -244,7 +262,7 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         tooltip: 'Increment',
-        child: Icon(Icons.edit),
+        child: Icon(Icons.add_sharp),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
